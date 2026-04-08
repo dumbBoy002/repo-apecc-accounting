@@ -28,6 +28,8 @@ const TABS = [
   { label: 'Revolving Fund Summary', icon: <Autorenew sx={{ fontSize: 18 }} /> },
 ];
 
+// Hey carl. Adjustment ni
+
 const TABLE_COLUMNS = {
   'Cash Receipt': ['#', 'Ref#', 'Account Title', 'Trxn Date', 'Amount', 'Source Fund', 'Particulars', 'Date Created', 'Actions'],
   'Cash Disbursement': ['#', 'Ref#', 'Account Title', 'Trxn Date', 'Amount', 'Source Fund', 'Particulars', 'Date Created', 'Actions'],
