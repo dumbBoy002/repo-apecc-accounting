@@ -3,8 +3,8 @@ import { Box, Typography, Grid } from '@mui/material';
 
 const CASH_RECEIPTS_DATA = [
     { label: 'Share Capital Collection', no: '', amount: '-' },
-    { label: 'CBU Collection', no: '1', amount: '3,000.00' },
-    { label: 'CBU Collec. (Voluntary)', no: '1', amount: '5,000.00' },
+    { label: 'CBU Collection', no: '', amount: '-' },
+    { label: 'CBU Collec. (Voluntary)', no: '', amount: '-' },
     { label: 'Salary Advance Collection', no: '', amount: '-' },
     { label: 'MC Advance Collection', no: '', amount: '-' },
     { label: 'Home Loan Collection', no: '', amount: '-' },
@@ -16,14 +16,14 @@ const CASH_RECEIPTS_DATA = [
     { label: 'Other Income', no: '', amount: '-' },
     { label: 'Collection from Deposit', no: '', amount: '-' },
     { label: 'Other Receipts', no: '', amount: '-' },
-    { label: '🏦 Bank Withdrawal', no: '3', amount: '525,000.00' }
+    { label: '🏦 Bank Withdrawal', no: '', amount: '-' }
 ];
 
 const CASH_DISBURSEMENT_DATA = [
     { label: 'Salary Advance Release', no: '', amount: '-' },
     { label: 'MC Advance Release', no: '', amount: '-' },
     { label: 'Home Loan Release', no: '', amount: '-' },
-    { label: 'Car Loan Release', no: '1', amount: '450,000.00' },
+    { label: 'Car Loan Release', no: '', amount: '-' },
     { label: 'Educational Loan Release', no: '', amount: '-' },
     { label: 'Short Term Loan Release', no: '', amount: '-' },
     { label: 'Gadget Loan Release', no: '', amount: '-' }
@@ -107,7 +107,7 @@ const DenomTable = ({ title, bookBalance, physicalCount, difference }) => (
                     <Typography sx={{ width: 60, textAlign: 'right', fontSize: '0.65rem', fontWeight: 700, color: '#475569' }}>{d.toLocaleString()}</Typography>
                     <Typography sx={{ width: 20, textAlign: 'center', fontSize: '0.65rem', color: '#94a3b8' }}>x</Typography>
                     <Box sx={{ flex: 1, borderBottom: '1px solid #e2e8f0', mx: 1, mt: 1.5, height: 8 }}></Box>
-                    <Typography sx={{ width: 80, textAlign: 'right', fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700 }}>0</Typography>
+                    <Typography sx={{ width: 80, textAlign: 'right', fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700 }}>0.00</Typography>
                 </Box>
             ))}
             <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 1, alignItems: 'center', minHeight: 20 }}>
@@ -146,15 +146,15 @@ export default function DCSSummaryView() {
 
             {/* Sub-Header */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderTop: '2px solid #020D47', borderBottom: '2px solid #020D47', py: 0.75, px: 1, mb: 1 }}>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>DAY: <span style={{ color: '#0ea5e9' }}>MONDAY</span></Typography>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>DATE: <span style={{ color: '#0ea5e9' }}>03/23/2026</span></Typography>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>YEAR: <span style={{ color: '#334155' }}>2026</span></Typography>
+                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>DAY: <span style={{ color: '#0ea5e9' }}>{/* Dyn: Day */}</span></Typography>
+                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>DATE: <span style={{ color: '#0ea5e9' }}>{/* Dyn: Date */}</span></Typography>
+                <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#020D47' }}>YEAR: <span style={{ color: '#334155' }}>{/* Dyn: Year */}</span></Typography>
             </Box>
 
             {/* Notice */}
             <Box sx={{ bgcolor: '#f8fafc', border: '1px solid #e2e8f0', p: 1, mb: 2, borderRadius: 1 }}>
                 <Typography sx={{ fontSize: '0.65rem', fontStyle: 'italic', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Box component="span" sx={{ fontSize: '0.6rem' }}>ⓘ</Box> This sheet is auto-generated from entries in the Cash Receipt, Cash Disbursement, and Bank Transactions tabs.
+                    <Box component="span" sx={{ fontSize: '0.8rem' }}>ⓘ</Box> This sheet is auto-generated from entries in the Cash Receipt, Cash Disbursement, and Bank Transactions tabs.
                 </Typography>
             </Box>
 
@@ -162,7 +162,7 @@ export default function DCSSummaryView() {
             <Grid container spacing={3}>
 
                 {/* LEFT COLUMN */}
-                <Grid item sx={{ width: '35%' }} xs={12} md={4} >
+                <Grid item sx={{ width: '35%' }} xs={12} md={4}>
                     {/* CASH RECEIPT SECTION */}
                     <Box sx={{ border: '1px solid #e2e8f0', mb: 3 }}>
                         <SectionHeaderRow title="CASH RECEIPT" col1="NO." col2="AMOUNT" />
@@ -179,12 +179,12 @@ export default function DCSSummaryView() {
                                     <Typography sx={{ fontSize: '0.6rem', color: '#cbd5e1', lineHeight: 1 }}>↳</Typography>
                                 </Box>
                                 <Box sx={{ flex: 1 }}>
-                                    <DataRow num="" label="Cash on Hand (COH)" no="" amount="21,500.00" borderBottom="none" />
-                                    <DataRow num="" label="Petty Cash" no="" amount="39,700.00" />
-                                    <DataRow num="" label="Revolving Fund" no="" amount="20,000.00" />
+                                    <DataRow num="" label="Cash on Hand (COH)" no="" amount="0.00" borderBottom="none" />
+                                    <DataRow num="" label="Petty Cash" no="" amount="0.00" />
+                                    <DataRow num="" label="Revolving Fund" no="" amount="0.00" />
                                 </Box>
                             </Box>
-                            <DataRow num="1" label="Beginning Balance" no="" amount="81,200.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#0ea5e9" />
+                            <DataRow num="1" label="Beginning Balance" no="" amount="0.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#0ea5e9" />
                         </Box>
 
                         {/* Collections */}
@@ -195,7 +195,7 @@ export default function DCSSummaryView() {
                         {/* Total Receipts */}
                         <Box sx={{ display: 'flex', bgcolor: '#1e293b', color: 'white', py: 0.75, px: 1, alignItems: 'center' }}>
                             <Typography sx={{ flex: 1, fontWeight: 800, fontSize: '0.7rem' }}>Total Receipts</Typography>
-                            <Typography sx={{ width: 80, textAlign: 'right', fontWeight: 800, fontSize: '0.7rem', color: '#f59e0b', pr: 0.5 }}>614,200.00</Typography>
+                            <Typography sx={{ width: 80, textAlign: 'right', fontWeight: 800, fontSize: '0.7rem', color: '#f59e0b', pr: 0.5 }}>0.00</Typography>
                         </Box>
                     </Box>
 
@@ -217,13 +217,13 @@ export default function DCSSummaryView() {
                     />
                     <DetailTable
                         title="DETAILS OF PETTY CASH FUND EXPENSES"
-                        rows={[{ code: '001', particulars: 'snack', source: 'PCF', amount: '340.00' }]}
-                        total="340.00"
+                        rows={[]}
+                        total="0.00"
                     />
                     <DetailTable
                         title="DETAILS OF MANAGEMENT EXPENSES"
                         rows={[]}
-                        total=""
+                        total="0.00"
                     />
                 </Grid>
 
@@ -231,13 +231,13 @@ export default function DCSSummaryView() {
                 <Grid item sx={{ width: '25%' }} xs={12} md={4}>
                     <DenomTable
                         title="CASH ON HAND (CLOSING)"
-                        bookBalance="19,500.00"
+                        bookBalance="0.00"
                         physicalCount="0.00"
-                        difference="19,500.00"
+                        difference="0.00"
                     />
                     <DenomTable
                         title="PETTY CASH (CLOSING)"
-                        bookBalance="39,360.00"
+                        bookBalance="0.00"
                         physicalCount="0.00"
                     />
                 </Grid>

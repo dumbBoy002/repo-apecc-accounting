@@ -7,20 +7,15 @@ import {
   ChevronLeft, ChevronRight, Today, Add, CheckCircle, Warning, Info,
 } from '@mui/icons-material';
 
-// Some mock initial transactions for demonstration
-const MOCK_TRANSACTIONS = {
-  // yyyy-mm-dd format
-  '2026-04-06': { status: 'Closed', coh: 21000, pettyCash: 5000, revolving: 2000, closingCoh: 21500, closingPetty: 4800, closingRevolving: 1800 },
-  '2026-04-09': { status: 'Holiday', title: 'Day of Valor' },
-};
+// Empty initial transactions for API integration
+const MOCK_TRANSACTIONS = {};
 
 const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function DCSCalendarView({ onUnlockDCS }) {
   const [currentDate, setCurrentDate] = useState(() => {
-    // Hardcoded for demo to April 2026 based on context, or use new Date()
-    return new Date(2026, 3, 1);
+    return new Date();
   });
 
   const [selectedDate, setSelectedDate] = useState(null);
