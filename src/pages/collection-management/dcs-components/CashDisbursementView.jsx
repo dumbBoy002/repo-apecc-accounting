@@ -3,6 +3,7 @@ import {
   Box, Card, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton,
 } from '@mui/material';
 import { Add, MonetizationOn, ListAlt, Block, ArrowForward, Print, VisibilityRounded } from '@mui/icons-material';
+import CustomTablePagination from '../../../components/common/CustomTablePagination';
 
 const DUMMY_CASH_DISBURSEMENTS = [
   { id: 1, ref: 'DISB-20260323-001', accountTitle: 'Petty Cash Fund', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
@@ -36,6 +37,7 @@ export default function CashDisbursementView() {
             Record all cash disbursements. Posts to DCS Disbursements column.
           </Typography>
         </Box>
+        <CustomTablePagination count={DUMMY_CASH_DISBURSEMENTS.length} />
       </Box>
 
       {/* Main Table Card */}
@@ -89,15 +91,15 @@ export default function CashDisbursementView() {
         </TableContainer>
 
         {/* Footer Bar */}
-        <Box sx={{ bgcolor: '#1e293b', color: 'white', p: 1.5, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', gap: 6, px: 1 }}>
+        <Box sx={{ bgcolor: '#1e293b', color: 'white', p: 1.5, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Box sx={{ display: 'flex', gap: 6, px: 1, textAlign: 'right' }}>
             <Box>
               <Typography sx={{ fontSize: '0.55rem', color: '#64748b', mb: 0.2, fontWeight: 700, letterSpacing: '0.05em' }}>ENTRIES</Typography>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', lineHeight: 1 }}>1</Typography>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', lineHeight: 1 }}>{DUMMY_CASH_DISBURSEMENTS.length}</Typography>
             </Box>
             <Box>
               <Typography sx={{ fontSize: '0.55rem', color: '#64748b', mb: 0.2, fontWeight: 700, letterSpacing: '0.05em' }}>TOTAL</Typography>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#eab308', lineHeight: 1 }}>12,500.00</Typography>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#eab308', lineHeight: 1 }}>₱{DUMMY_CASH_DISBURSEMENTS.reduce((total, row) => total + parseFloat(row.amount.replace(/[^0-9.-]+/g, "")), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Typography>
             </Box>
           </Box>
         </Box>

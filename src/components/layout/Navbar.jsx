@@ -35,12 +35,12 @@ export default function Navbar({ onMenuToggle }) {
   return (
     <AppBar position="fixed" elevation={0} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar sx={{ gap: 1, minHeight: 64 }}>
-        {/* Mobile menu button */}
+        {/* Menu toggle button */}
         <IconButton
           color="inherit"
           edge="start"
           onClick={onMenuToggle}
-          sx={{ display: { md: 'none' }, mr: 1 }}
+          sx={{ mr: 1 }}
         >
           <MenuIcon />
         </IconButton>

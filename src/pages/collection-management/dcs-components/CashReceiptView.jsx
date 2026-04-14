@@ -1,8 +1,13 @@
 import React from 'react';
 import {
-  Box, Card, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton,
+  Box, Card, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, TablePagination
 } from '@mui/material';
 import { Add, ReceiptLong, ListAlt, Block, ArrowForward } from '@mui/icons-material';
+import CustomTablePagination from '../../../components/common/CustomTablePagination';
+
+const cashReceiptColumns = [
+  '#', 'REF#', 'ACCOUNT TITLE', 'TXN DATE', 'AMOUNT', 'SOURCE FUND', 'DESCRIPTION', 'DATE CREATED', 'ACTIONS'
+];
 
 const DUMMY_CASH_RECEIPTS = [
   { id: 1, ref: 'REC-20260323-002', accountTitle: 'CBU Collec. (Voluntary)', txnDate: '2026-03-23', amount: '₱5,000.00', sourceFund: 'Cash on Hand', description: 'Voluntary', dateCreated: '4/6/2026, 9:56:22 AM' },
@@ -36,6 +41,7 @@ export default function CashReceiptView() {
             Record all collection receipts. Posts to DCS Receipts column.
           </Typography>
         </Box>
+        <CustomTablePagination />
       </Box>
 
       {/* Main Table Card */}
@@ -56,7 +62,7 @@ export default function CashReceiptView() {
           <Table size="small" sx={{ minWidth: 800 }}>
             <TableHead>
               <TableRow sx={{ bgcolor: '#1e293b', '&:hover': { bgcolor: '#1e293b' } }}>
-                {['#', 'REF#', 'ACCOUNT TITLE', 'TXN DATE', 'AMOUNT', 'SOURCE FUND', 'DESCRIPTION', 'DATE CREATED', 'ACTIONS'].map((col, i) => (
+                {cashReceiptColumns.map((col, i) => (
                   <TableCell key={col} sx={{ color: '#ffffff !important', background: 'transparent !important', borderBottom: 'none !important', fontSize: '0.65rem', py: 1.5, fontWeight: 700, opacity: 0.9 }} align={i === 8 ? 'center' : i === 4 ? 'right' : 'left'}>
                     {col}
                   </TableCell>
@@ -86,15 +92,15 @@ export default function CashReceiptView() {
         </TableContainer>
 
         {/* Footer Bar */}
-        <Box sx={{ bgcolor: '#1e293b', color: 'white', p: 1.5, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', gap: 6, px: 1 }}>
+        <Box sx={{ bgcolor: '#1e293b', color: 'white', p: 1.5, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Box sx={{ display: 'flex', gap: 6, px: 1, textAlign: 'right' }}>
             <Box>
               <Typography sx={{ fontSize: '0.55rem', color: '#64748b', mb: 0.2, fontWeight: 700, letterSpacing: '0.05em' }}>ENTRIES</Typography>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', lineHeight: 1 }}>2</Typography>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', lineHeight: 1 }}>{DUMMY_CASH_RECEIPTS.length}</Typography>
             </Box>
             <Box>
               <Typography sx={{ fontSize: '0.55rem', color: '#64748b', mb: 0.2, fontWeight: 700, letterSpacing: '0.05em' }}>TOTAL</Typography>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#22c55e', lineHeight: 1 }}>8,000.00</Typography>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#22c55e', lineHeight: 1 }}>₱{DUMMY_CASH_RECEIPTS.reduce((total, row) => total + (parseFloat(row.amount.replace(/[^0-9.-]+/g, "")) || 0), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Typography>
             </Box>
           </Box>
         </Box>

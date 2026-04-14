@@ -1,138 +1,240 @@
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, TextField, Button } from '@mui/material';
+import { Title } from '@mui/icons-material';
 
 const CASH_RECEIPTS_DATA = [
-    { label: 'Share Capital Collection', no: '', amount: '-' },
-    { label: 'CBU Collection', no: '', amount: '-' },
-    { label: 'CBU Collec. (Voluntary)', no: '', amount: '-' },
-    { label: 'Salary Advance Collection', no: '', amount: '-' },
-    { label: 'MC Advance Collection', no: '', amount: '-' },
-    { label: 'Home Loan Collection', no: '', amount: '-' },
-    { label: 'Car Loan Collection', no: '', amount: '-' },
-    { label: 'Educational Loan Collection', no: '', amount: '-' },
-    { label: 'Short Term Loan Collection', no: '', amount: '-' },
-    { label: 'Gadget Loan Collection', no: '', amount: '-' },
-    { label: 'Malasakit Loan Collection', no: '', amount: '-' },
-    { label: 'Other Income', no: '', amount: '-' },
-    { label: 'Collection from Deposit', no: '', amount: '-' },
-    { label: 'Other Receipts', no: '', amount: '-' },
-    { label: '🏦 Bank Withdrawal', no: '', amount: '-' }
+    { label: 'Share Capital Collection', no: '', amount: '0' },
+    { label: 'CBU Collection', no: '', amount: '0' },
+    { label: 'CBU Collec. (Voluntary)', no: '', amount: '0' },
+    { label: 'Salary Advance Collection', no: '', amount: '0' },
+    { label: 'MC Advance Collection', no: '', amount: '0' },
+    { label: 'Home Loan Collection', no: '', amount: '0' },
+    { label: 'Car Loan Collection', no: '', amount: '0' },
+    { label: 'Educational Loan Collection', no: '', amount: '0' },
+    { label: 'Short Term Loan Collection', no: '', amount: '0' },
+    { label: 'Gadget Loan Collection', no: '', amount: '0' },
+    { label: 'Malasakit Loan Collection', no: '', amount: '0' },
+    { label: 'Other Income', no: '', amount: '0' },
+    { label: 'Collection from Deposit', no: '', amount: '0' },
+    { label: 'Other Receipts', no: '', amount: '0' },
+    { label: 'Bank Withdrawal', no: '', amount: '0' }
 ];
 
 const CASH_DISBURSEMENT_DATA = [
-    { label: 'Salary Advance Release', no: '', amount: '-' },
-    { label: 'MC Advance Release', no: '', amount: '-' },
-    { label: 'Home Loan Release', no: '', amount: '-' },
-    { label: 'Car Loan Release', no: '', amount: '-' },
-    { label: 'Educational Loan Release', no: '', amount: '-' },
-    { label: 'Short Term Loan Release', no: '', amount: '-' },
-    { label: 'Gadget Loan Release', no: '', amount: '-' }
+    { label: 'Salary Advance Release', no: '', amount: '0' },
+    { label: 'MC Advance Release', no: '', amount: '0' },
+    { label: 'Home Loan Release', no: '', amount: '0' },
+    { label: 'Car Loan Release', no: '', amount: '0' },
+    { label: 'Educational Loan Release', no: '', amount: '0' },
+    { label: 'Short Term Loan Release', no: '', amount: '0' },
+    { label: 'Gadget Loan Release', no: '', amount: '0' },
+    { label: 'Member CBU Withd.', no: '', amount: '0' },
+    { label: 'Member CBU Refund', no: '', amount: '0' },
+    { label: 'Mngt. Expenses', no: '', amount: '0' },
+    { label: 'Petty Cash Fund', no: '', amount: '0' },
+    { label: 'Unclaimed Return Disbursement', no: '', amount: '0' },
+    { label: 'Rebates Disbursement', no: '', amount: '0' },
+    { label: 'Other Payments', no: '', amount: '0' },
+    { label: 'Bank Deposit', no: '', amount: '0' }
 ];
 
 const DENOMINATIONS = [1000, 500, 200, 100, 50, 20, 10, 5, 1];
 
 const SectionHeaderRow = ({ title, col1, col2 }) => (
-    <Box sx={{ display: 'flex', bgcolor: '#020D47', color: 'white', py: 0.5, px: 0 }}>
-        <Typography sx={{ flex: 1, fontWeight: 700, fontSize: '0.65rem', pl: 1, display: 'flex', alignItems: 'center' }}>{title}</Typography>
-        <Typography sx={{ width: 40, textAlign: 'center', fontWeight: 700, fontSize: '0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{col1}</Typography>
-        <Typography sx={{ width: 80, textAlign: 'right', fontWeight: 700, fontSize: '0.65rem', pr: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>{col2}</Typography>
+    <Box sx={{ display: 'flex', bgcolor: '#0f172a', color: 'white', py: 1, px: 0 }}>
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', px: 2 }}>
+            <Typography sx={{ fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</Typography>
+        </Box>
+        <Box sx={{ width: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography sx={{ fontWeight: 700, fontSize: '0.65rem' }}>{col1}</Typography>
+        </Box>
+        <Box sx={{ width: 110, pr: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+            <Typography sx={{ fontWeight: 700, fontSize: '0.65rem' }}>{col2}</Typography>
+        </Box>
     </Box>
 );
 
-const DataRow = ({ num, label, no, amount, isSubTotal, bgColor = 'white', fgColor = '#334155' }) => (
-    <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', bgcolor: bgColor, alignItems: 'stretch', minHeight: 22 }}>
-        <Box sx={{ width: 28, borderRight: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 0.25 }}>
-            <Typography sx={{ fontSize: '0.6rem', color: '#94a3b8' }}>{num}</Typography>
+const DataRow = ({ num, label, no, amount, isSubTotal, bgColor = 'white', fgColor = '#1e293b' }) => (
+    <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', bgcolor: bgColor, alignItems: 'stretch', minHeight: 36 }}>
+        <Box sx={{ width: 36, borderRight: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1 }}>
+            <Typography sx={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 600 }}>{num}</Typography>
         </Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid #e2e8f0', px: 1, display: 'flex', alignItems: 'center', py: 0.25 }}>
-            <Typography sx={{ fontSize: '0.6rem', color: fgColor, fontWeight: isSubTotal ? 700 : 500 }}>{label}</Typography>
+        <Box sx={{ flex: 1, borderRight: '1px solid #e2e8f0', px: 2, display: 'flex', alignItems: 'center', py: 1 }}>
+            <Typography sx={{ fontSize: '0.75rem', color: fgColor, fontWeight: isSubTotal ? 700 : 500 }}>{label}</Typography>
         </Box>
-        <Box sx={{ width: 40, borderRight: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 0.25 }}>
-            <Typography sx={{ fontSize: '0.6rem', color: fgColor }}>{no}</Typography>
+        <Box sx={{ width: 60, borderRight: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1 }}>
+            <Typography sx={{ fontSize: '0.75rem', color: '#64748b' }}>{no}</Typography>
         </Box>
-        <Box sx={{ width: 80, px: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', py: 0.25 }}>
-            <Typography sx={{ fontSize: '0.65rem', color: amount !== '-' && !isSubTotal ? '#0ea5e9' : fgColor, fontWeight: isSubTotal || amount !== '-' ? 700 : 500 }}>{amount}</Typography>
+        <Box sx={{ width: 110, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', py: 1 }}>
+            <Typography sx={{ fontSize: '0.75rem', color: amount !== '-' && !isSubTotal ? '#0ea5e9' : fgColor, fontWeight: isSubTotal || amount !== '-' ? 700 : 500 }}>{amount}</Typography>
         </Box>
     </Box>
 );
 
 const DetailTable = ({ title, rows, total }) => (
     <Box sx={{ mb: 3 }}>
-        <Typography sx={{ fontSize: '0.7rem', fontWeight: 800, color: '#0ea5e9', borderLeft: '3px solid #0ea5e9', pl: 1, mb: 1 }}>{title}</Typography>
-        <Box sx={{ border: '1px solid #e2e8f0', bgcolor: 'white' }}>
-            <Box sx={{ display: 'flex', bgcolor: '#020D47', color: 'white', py: 0.5, px: 0 }}>
-                <Typography sx={{ width: 45, fontSize: '0.6rem', fontWeight: 700, pl: 1 }}>CODE</Typography>
-                <Typography sx={{ flex: 1, fontSize: '0.6rem', fontWeight: 700 }}>PARTICULARS</Typography>
-                <Typography sx={{ width: 55, fontSize: '0.6rem', fontWeight: 700 }}>SOURCE</Typography>
-                <Typography sx={{ width: 75, textAlign: 'right', fontSize: '0.6rem', fontWeight: 700, pr: 1 }}>AMOUNT</Typography>
+        <Typography sx={{ fontSize: '0.8rem', fontWeight: 800, color: '#0f172a', mb: 1, textTransform: 'uppercase' }}>{title}</Typography>
+        <Box sx={{ border: '1px solid #e2e8f0', bgcolor: 'white', borderRadius: 1, overflow: 'hidden' }}>
+            <Box sx={{ display: 'flex', bgcolor: '#0f172a', color: 'white', py: 1, px: 0 }}>
+                <Box sx={{ width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: '0.65rem', fontWeight: 700 }}>CODE</Typography>
+                </Box>
+                <Box sx={{ flex: 1, px: 2, display: 'flex', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: '0.65rem', fontWeight: 700 }}>PARTICULARS</Typography>
+                </Box>
+                <Box sx={{ width: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: '0.65rem', fontWeight: 700 }}>SOURCE</Typography>
+                </Box>
+                <Box sx={{ width: 110, pr: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: '0.65rem', fontWeight: 700 }}>AMOUNT</Typography>
+                </Box>
             </Box>
             {rows.map((r, i) => (
-                <Box key={i} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', minHeight: 22, alignItems: 'stretch' }}>
-                    <Box sx={{ width: 45, pl: 1, display: 'flex', alignItems: 'center', borderRight: '1px solid #e2e8f0' }}>
-                        <Typography sx={{ fontSize: '0.6rem', color: '#64748b' }}>{r.code}</Typography>
+                <Box key={i} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', minHeight: 36, alignItems: 'stretch' }}>
+                    <Box sx={{ width: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid #e2e8f0' }}>
+                        <Typography sx={{ fontSize: '0.75rem', color: '#64748b' }}>{r.code}</Typography>
                     </Box>
-                    <Box sx={{ flex: 1, px: 1, display: 'flex', alignItems: 'center', borderRight: '1px solid #e2e8f0' }}>
-                        <Typography sx={{ fontSize: '0.6rem', color: '#334155' }}>{r.particulars}</Typography>
+                    <Box sx={{ flex: 1, px: 2, display: 'flex', alignItems: 'center', borderRight: '1px solid #e2e8f0' }}>
+                        <Typography sx={{ fontSize: '0.75rem', color: '#1e293b' }}>{r.particulars}</Typography>
                     </Box>
-                    <Box sx={{ width: 55, px: 1, display: 'flex', alignItems: 'center', borderRight: '1px solid #e2e8f0' }}>
-                        <Typography sx={{ fontSize: '0.6rem', color: '#64748b' }}>{r.source}</Typography>
+                    <Box sx={{ width: 80, px: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid #e2e8f0' }}>
+                        <Typography sx={{ fontSize: '0.75rem', color: '#64748b' }}>{r.source}</Typography>
                     </Box>
-                    <Box sx={{ width: 75, pr: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                        <Typography sx={{ fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700 }}>{r.amount}</Typography>
+                    <Box sx={{ width: 110, pr: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                        <Typography sx={{ fontSize: '0.75rem', color: '#0ea5e9', fontWeight: 700 }}>{r.amount}</Typography>
                     </Box>
                 </Box>
             ))}
-            {Array.from({ length: Math.max(0, 5 - rows.length) }).map((_, i) => (
-                <Box key={`empty-${i}`} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', minHeight: 22 }}>
-                    <Box sx={{ width: 45, borderRight: '1px solid #e2e8f0' }}></Box>
+            {Array.from({ length: Math.max(0, 10 - rows.length) }).map((_, i) => (
+                <Box key={`empty-${i}`} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', minHeight: 36 }}>
+                    <Box sx={{ width: 60, borderRight: '1px solid #e2e8f0' }}></Box>
                     <Box sx={{ flex: 1, borderRight: '1px solid #e2e8f0' }}></Box>
-                    <Box sx={{ width: 55, borderRight: '1px solid #e2e8f0' }}></Box>
-                    <Box sx={{ width: 75 }}></Box>
+                    <Box sx={{ width: 80, borderRight: '1px solid #e2e8f0' }}></Box>
+                    <Box sx={{ width: 110 }}></Box>
                 </Box>
             ))}
-            <Box sx={{ display: 'flex', py: 0.5, bgcolor: '#fdfbfa' }}>
-                <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 700, color: '#ef4444', textAlign: 'center' }}>TOTAL</Typography>
-                <Typography sx={{ width: 75, textAlign: 'right', fontSize: '0.65rem', fontWeight: 700, color: '#ef4444', pr: 1 }}>{total}</Typography>
+            <Box sx={{ display: 'flex', py: 1.5, bgcolor: '#f8fafc', px: 0 }}>
+                <Box sx={{ flex: 1, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#ef4444' }}>TOTAL</Typography>
+                </Box>
+                <Box sx={{ width: 110, pr: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Typography sx={{ fontSize: '0.75rem', fontWeight: 800, color: '#ef4444' }}>{total}</Typography>
+                </Box>
             </Box>
         </Box>
     </Box>
 );
 
-const DenomTable = ({ title, bookBalance, physicalCount, difference }) => (
-    <Box sx={{ mb: 3 }}>
-        <Typography sx={{ fontSize: '0.7rem', fontWeight: 800, color: '#0ea5e9', borderLeft: '3px solid #0ea5e9', pl: 1, mb: 1 }}>{title}</Typography>
-        <Box sx={{ border: '1px solid #e2e8f0', bgcolor: 'white' }}>
-            {DENOMINATIONS.map(d => (
-                <Box key={d} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 1, alignItems: 'center', minHeight: 20 }}>
-                    <Typography sx={{ width: 60, textAlign: 'right', fontSize: '0.65rem', fontWeight: 700, color: '#475569' }}>{d.toLocaleString()}</Typography>
-                    <Typography sx={{ width: 20, textAlign: 'center', fontSize: '0.65rem', color: '#94a3b8' }}>x</Typography>
-                    <Box sx={{ flex: 1, borderBottom: '1px solid #e2e8f0', mx: 1, mt: 1.5, height: 8 }}></Box>
-                    <Typography sx={{ width: 80, textAlign: 'right', fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700 }}>0.00</Typography>
-                </Box>
-            ))}
-            <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 1, alignItems: 'center', minHeight: 20 }}>
-                <Typography sx={{ width: 80, textAlign: 'right', fontSize: '0.65rem', fontWeight: 800, color: '#475569' }}>COINS</Typography>
-                <Box sx={{ flex: 1 }}></Box>
-                <Typography sx={{ width: 80, textAlign: 'right', fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700 }}>0.00</Typography>
-            </Box>
+const DenomTable = ({ title, bookBalance = "0.00", hasDifference = false }) => {
+    const [quantities, setQuantities] = React.useState({});
+    const [coins, setCoins] = React.useState('');
 
-            <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', py: 0.75, px: 1, alignItems: 'center', bgcolor: '#f0f9ff' }}>
-                <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#0ea5e9' }}>BOOK BALANCE</Typography>
-                <Typography sx={{ width: 100, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#0ea5e9' }}>{bookBalance}</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', borderBottom: difference !== undefined ? '1px solid #e2e8f0' : 'none', py: 0.75, px: 1, alignItems: 'center', bgcolor: '#f0fdf4' }}>
-                <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#10b981' }}>PHYSICAL COUNT</Typography>
-                <Typography sx={{ width: 100, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#10b981' }}>{physicalCount}</Typography>
-            </Box>
-            {difference !== undefined && (
-                <Box sx={{ display: 'flex', py: 0.75, px: 1, alignItems: 'center', bgcolor: '#fef2f2' }}>
-                    <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#ef4444' }}>DIFFERENCE</Typography>
-                    <Typography sx={{ width: 100, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#ef4444' }}>{difference}</Typography>
+    const handleQuantityChange = (denom, value) => {
+        if (value === '') {
+            setQuantities(prev => ({ ...prev, [denom]: '' }));
+            return;
+        }
+        const val = parseInt(value, 10);
+        setQuantities(prev => ({ ...prev, [denom]: isNaN(val) ? '' : val }));
+    };
+
+    const handleCoinsChange = (value) => {
+        setCoins(value);
+    };
+
+    const parsedCoins = parseFloat(coins) || 0;
+    const totalBills = DENOMINATIONS.reduce((sum, d) => sum + ((quantities[d] || 0) * d), 0);
+    const physicalCount = totalBills + parsedCoins;
+
+    // Parse book balance assuming it might be a formatted string or "0.00"
+    const parsedBookBalance = parseFloat((bookBalance || '0').toString().replace(/[^0-9.-]+/g, ""));
+    const difference = physicalCount - parsedBookBalance;
+
+    return (
+        <Box sx={{ mb: 3 }}>
+            <Typography sx={{ fontSize: '0.8rem', fontWeight: 800, color: '#0f172a', mb: 1, textTransform: 'uppercase' }}>{title}</Typography>
+            <Box sx={{ border: '1px solid #e2e8f0', bgcolor: 'white', borderRadius: 1 }}>
+
+                {/* Header Row */}
+                <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 2, alignItems: 'center', py: 1 }}>
+                    <Typography sx={{ width: 110, textAlign: 'center', fontSize: '0.75rem', fontWeight: 800, color: '#0f172a' }}>Denomination</Typography>
+                    <Typography sx={{ flex: 1, textAlign: 'center', fontSize: '0.75rem', fontWeight: 800, color: '#0f172a' }}>Pieces</Typography>
+                    <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#0f172a' }}>Amount</Typography>
                 </Box>
-            )}
+
+                {DENOMINATIONS.map(d => {
+                    const qty = quantities[d] !== undefined ? quantities[d] : '';
+                    const rowTotal = (quantities[d] || 0) * d;
+                    return (
+                        <Box key={d} sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 2, alignItems: 'center', minHeight: 36, py: 1 }}>
+                            <Typography sx={{ width: 110, textAlign: 'center', fontSize: '0.75rem', color: '#1e293b' }}>{d.toLocaleString()}</Typography>
+                            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                                <TextField
+                                    size="small"
+                                    variant="outlined"
+                                    placeholder="0"
+                                    value={qty}
+                                    onChange={(e) => handleQuantityChange(d, e.target.value)}
+                                    type="number"
+                                    inputProps={{ style: { fontSize: '0.75rem', padding: '6px 12px' }, min: 0 }}
+                                    sx={{
+                                        width: '75%',
+                                        '& .MuiOutlinedInput-root': { borderRadius: 1, bgcolor: 'white' },
+                                        '& input[type=number]': { MozAppearance: 'textfield' },
+                                        '& input[type=number]::-webkit-outer-spin-button': { WebkitAppearance: 'none', margin: 0 },
+                                        '& input[type=number]::-webkit-inner-spin-button': { WebkitAppearance: 'none', margin: 0 }
+                                    }}
+                                />
+                            </Box>
+                            <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', color: '#1e293b' }}>
+                                {rowTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </Typography>
+                        </Box>
+                    );
+                })}
+                <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', px: 2, alignItems: 'center', py: 1 }}>
+                    <Typography sx={{ width: 110, textAlign: 'center', fontSize: '0.75rem', color: '#1e293b' }}>coins</Typography>
+                    <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                        <TextField
+                            size="small"
+                            variant="outlined"
+                            placeholder="0"
+                            value={coins}
+                            onChange={(e) => handleCoinsChange(e.target.value)}
+                            type="number"
+                            inputProps={{ style: { fontSize: '0.75rem', padding: '6px 12px' }, min: 0 }}
+                            sx={{
+                                width: '75%',
+                                '& .MuiOutlinedInput-root': { borderRadius: 1, bgcolor: 'white' },
+                                '& input[type=number]': { MozAppearance: 'textfield' },
+                                '& input[type=number]::-webkit-outer-spin-button': { WebkitAppearance: 'none', margin: 0 },
+                                '& input[type=number]::-webkit-inner-spin-button': { WebkitAppearance: 'none', margin: 0 }
+                            }}
+                        />
+                    </Box>
+                    <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', color: '#1e293b', alignSelf: 'center' }}>
+                        {parsedCoins > 0 ? parsedCoins.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', borderBottom: '1px solid #e2e8f0', py: 1.5, px: 2, alignItems: 'center', bgcolor: '#f8fafc' }}>
+                    <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#0ea5e9' }}>BOOK BALANCE</Typography>
+                    <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#0ea5e9' }}>{bookBalance}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', borderBottom: hasDifference ? '1px solid #e2e8f0' : 'none', py: 1.5, px: 2, alignItems: 'center', bgcolor: '#f0fdf4' }}>
+                    <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#10b981' }}>PHYSICAL COUNT</Typography>
+                    <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#10b981' }}>{physicalCount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Typography>
+                </Box>
+                {hasDifference && (
+                    <Box sx={{ display: 'flex', py: 1.5, px: 2, alignItems: 'center', bgcolor: '#fef2f2' }}>
+                        <Typography sx={{ flex: 1, fontSize: '0.65rem', fontWeight: 800, color: '#ef4444' }}>DIFFERENCE</Typography>
+                        <Typography sx={{ width: 110, textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: '#ef4444' }}>{difference.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Typography>
+                    </Box>
+                )}
+            </Box>
         </Box>
-    </Box>
-);
+    );
+};
 
 export default function DCSSummaryView() {
     return (
@@ -162,54 +264,70 @@ export default function DCSSummaryView() {
             <Grid container spacing={3}>
 
                 {/* LEFT COLUMN */}
-                <Grid item sx={{ width: '35%' }} xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }} sx={{ width: '35%' }}>
                     {/* CASH RECEIPT SECTION */}
                     <Box sx={{ border: '1px solid #e2e8f0', mb: 3 }}>
                         <SectionHeaderRow title="CASH RECEIPT" col1="NO." col2="AMOUNT" />
 
                         {/* Beginning Balance Box */}
                         <Box sx={{ borderBottom: '1px solid #e2e8f0' }}>
-                            <Box sx={{ bgcolor: '#f0f9ff', py: 0.5, px: 1, borderBottom: '1px solid #e2e8f0' }}>
-                                <Typography sx={{ fontSize: '0.55rem', fontWeight: 800, color: '#0ea5e9', letterSpacing: '0.05em' }}>BEGINNING BALANCE BREAKDOWN</Typography>
+                            <Box sx={{ bgcolor: '#f0f9ff', py: 1, px: 2, borderBottom: '1px solid #e2e8f0' }}>
+                                <Typography sx={{ fontSize: '0.65rem', fontWeight: 800, color: '#0ea5e9', letterSpacing: '0.05em' }}>BEGINNING BALANCE BREAKDOWN</Typography>
                             </Box>
-                            <Box sx={{ display: 'flex' }}>
-                                <Box sx={{ width: 28, borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', py: 0.5 }}>
-                                    <Typography sx={{ fontSize: '0.6rem', color: '#cbd5e1', lineHeight: 1 }}>↳</Typography>
-                                    <Typography sx={{ fontSize: '0.6rem', color: '#cbd5e1', lineHeight: 1 }}>↳</Typography>
-                                    <Typography sx={{ fontSize: '0.6rem', color: '#cbd5e1', lineHeight: 1 }}>↳</Typography>
-                                </Box>
-                                <Box sx={{ flex: 1 }}>
-                                    <DataRow num="" label="Cash on Hand (COH)" no="" amount="0.00" borderBottom="none" />
-                                    <DataRow num="" label="Petty Cash" no="" amount="0.00" />
-                                    <DataRow num="" label="Revolving Fund" no="" amount="0.00" />
-                                </Box>
-                            </Box>
+                            <DataRow num="↳" label="Cash on Hand (COH)" no="" amount="0.00" />
+                            <DataRow num="↳" label="Petty Cash" no="" amount="0.00" />
+                            <DataRow num="↳" label="Revolving Fund" no="" amount="0.00" />
                             <DataRow num="1" label="Beginning Balance" no="" amount="0.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#0ea5e9" />
                         </Box>
 
-                        {/* Collections */}
+                        {/* Cash Receipt Collections */}
                         {CASH_RECEIPTS_DATA.map((row, i) => (
                             <DataRow key={i} num={i + 2} label={row.label} no={row.no} amount={row.amount} />
                         ))}
 
                         {/* Total Receipts */}
-                        <Box sx={{ display: 'flex', bgcolor: '#1e293b', color: 'white', py: 0.75, px: 1, alignItems: 'center' }}>
-                            <Typography sx={{ flex: 1, fontWeight: 800, fontSize: '0.7rem' }}>Total Receipts</Typography>
-                            <Typography sx={{ width: 80, textAlign: 'right', fontWeight: 800, fontSize: '0.7rem', color: '#f59e0b', pr: 0.5 }}>0.00</Typography>
+                        <Box sx={{ display: 'flex', bgcolor: '#1e293b', color: 'white', py: 1, px: 0, alignItems: 'center' }}>
+                            <Box sx={{ flex: 1, px: 2, display: 'flex', alignItems: 'center' }}>
+                                <Typography sx={{ fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase' }}>Total Receipts</Typography>
+                            </Box>
+                            <Box sx={{ width: 110, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <Typography sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#f59e0b' }}>0.00</Typography>
+                            </Box>
                         </Box>
                     </Box>
 
                     {/* CASH DISBURSEMENT SECTION */}
                     <Box sx={{ border: '1px solid #e2e8f0', mb: 3 }}>
                         <SectionHeaderRow title="CASH DISBURSEMENT" col1="NO." col2="AMOUNT" />
+                        {/* Cash Disbursement Collections */}
                         {CASH_DISBURSEMENT_DATA.map((row, i) => (
                             <DataRow key={i} num={i + 1} label={row.label} no={row.no} amount={row.amount} />
                         ))}
+                        {/* Total Disbursements */}
+                        <Box sx={{ display: 'flex', bgcolor: '#1e293b', color: 'white', py: 1, px: 0, alignItems: 'center' }}>
+                            <Box sx={{ flex: 1, px: 2, display: 'flex', alignItems: 'center' }}>
+                                <Typography sx={{ fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase' }}>Total Disbursements</Typography>
+                            </Box>
+                            <Box sx={{ width: 110, px: 2, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <Typography sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#f59e0b' }}>0.00</Typography>
+                            </Box>
+                        </Box>
+
+                        {/* Closing Balance Breakdown */}
+                        <Box sx={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <Box sx={{ bgcolor: '#f0f9ff', py: 1, px: 2, borderBottom: '1px solid #e2e8f0' }}>
+                                <Typography sx={{ fontSize: '0.65rem', fontWeight: 800, color: '#e92f0eff', letterSpacing: '0.05em' }}>CLOSING BALANCE BREAKDOWN</Typography>
+                            </Box>
+                            <DataRow num="↳" label="Cash on Hand (COH)" no="" amount="12,000,000.00" />
+                            <DataRow num="↳" label="Petty Cash" no="" amount="0.00" />
+                            <DataRow num="↳" label="Revolving Fund" no="" amount="0.00" />
+                            <DataRow num="16" label="Closing Balance" no="" amount="12,000,000.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#e92f0eff" />
+                        </Box>
                     </Box>
                 </Grid>
 
                 {/* MIDDLE COLUMN */}
-                <Grid item sx={{ width: '35%' }} xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }} sx={{ width: '35%' }}>
                     <DetailTable
                         title="DETAILS OF OTHER RECEIPTS"
                         rows={[]}
@@ -225,24 +343,38 @@ export default function DCSSummaryView() {
                         rows={[]}
                         total="0.00"
                     />
+                    <DetailTable
+                        title="DETAILS OF OTHER PAYMENTS"
+                        rows={[]}
+                        total="0.00"
+                    />
                 </Grid>
 
                 {/* RIGHT COLUMN */}
-                <Grid item sx={{ width: '25%' }} xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }} sx={{ width: '25%' }}>
                     <DenomTable
                         title="CASH ON HAND (CLOSING)"
                         bookBalance="0.00"
-                        physicalCount="0.00"
-                        difference="0.00"
+                        hasDifference={true}
                     />
                     <DenomTable
                         title="PETTY CASH (CLOSING)"
                         bookBalance="0.00"
-                        physicalCount="0.00"
+                        hasDifference={true}
                     />
+                    <DenomTable
+                        title="REVOLVING FUND (CLOSING)"
+                        bookBalance="0.00"
+                        hasDifference={true}
+                    />
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mr: 1 }}>
+                        <Button variant="contained" color="primary" sx={{ textTransform: 'none', fontWeight: 600, px: 2 }}>
+                            Submit Closing Balances
+                        </Button>
+                    </Box>
                 </Grid>
-
             </Grid>
+
         </Box>
     );
 }

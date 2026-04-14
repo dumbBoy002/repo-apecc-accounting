@@ -54,7 +54,7 @@ function NavLeafItem({ item, depth = 0 }) {
 }
 
 function SubGroupItem({ group, depth }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <>
       <ListItemButton onClick={() => setOpen(!open)} sx={{ pl: 2 + depth * 1.5, py: 0.6 }}>
@@ -69,7 +69,7 @@ function SubGroupItem({ group, depth }) {
           }}
         />
         {open ? <ExpandLess sx={{ color: 'rgba(213,247,234,0.4)', fontSize: 16 }} />
-               : <ExpandMore sx={{ color: 'rgba(213,247,234,0.4)', fontSize: 16 }} />}
+          : <ExpandMore sx={{ color: 'rgba(213,247,234,0.4)', fontSize: 16 }} />}
       </ListItemButton>
       <Collapse in={open}>
         <List disablePadding>
@@ -83,7 +83,7 @@ function SubGroupItem({ group, depth }) {
 }
 
 function SectionItem({ section }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const SectionIcon = ICON_MAP[section.icon] || GridView;
 
   return (
@@ -127,7 +127,7 @@ function SectionItem({ section }) {
   );
 }
 
-export default function Sidebar({ mobileOpen, onClose }) {
+export default function Sidebar({ mobileOpen, onClose, desktopOpen = true }) {
   const drawerContent = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
       {/* Brand Header */}
@@ -216,12 +216,18 @@ export default function Sidebar({ mobileOpen, onClose }) {
       </Drawer>
       {/* Desktop drawer */}
       <Drawer
-        variant="permanent"
+        variant="persistent"
         sx={{
           display: { xs: 'none', md: 'block' },
-          '& .MuiDrawer-paper': { width: DRAWER_WIDTH, boxSizing: 'border-box', top: 64, height: 'calc(100% - 64px)' },
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+            top: 64,
+            height: 'calc(100% - 64px)',
+            borderRight: '1px solid rgba(0,0,0,0.12)'
+          },
         }}
-        open
+        open={desktopOpen}
       >
         {drawerContent}
       </Drawer>

@@ -16,6 +16,10 @@ import CashDisbursementView from './dcs-components/CashDisbursementView';
 import GeneralJournalView from './dcs-components/GeneralJournalView';
 import DCSSummaryView from './dcs-components/DCSSummaryView';
 import DCSCalendarView from './dcs-components/DCSCalendarView';
+import BankReconciliationView from './dcs-components/BankReconciliationView';
+import CashSummaryView from './dcs-components/CashSummaryView';
+import PettyCashSummaryView from './dcs-components/PettyCashSummaryView';
+import RevolvingFundSummaryView from './dcs-components/RevolvingFundSummaryView';
 
 const TABS = [
   { label: 'DCS Summary', icon: <Assessment sx={{ fontSize: 18 }} /> },
@@ -27,8 +31,6 @@ const TABS = [
   { label: 'Petty Cash Summary', icon: <LocalAtm sx={{ fontSize: 18 }} /> },
   { label: 'Revolving Fund Summary', icon: <Autorenew sx={{ fontSize: 18 }} /> },
 ];
-
-// Hey carl. Adjustment ni
 
 const TABLE_COLUMNS = {
   'Cash Receipt': ['#', 'Ref#', 'Account Title', 'Trxn Date', 'Amount', 'Source Fund', 'Particulars', 'Date Created', 'Actions'],
@@ -81,6 +83,14 @@ export default function DCSPage() {
             <GeneralJournalView />
           ) : currentTabLabel === 'DCS Summary' ? (
             <DCSSummaryView />
+          ) : currentTabLabel === 'Bank Reconciliation' ? (
+            <BankReconciliationView />
+          ) : currentTabLabel === 'Cash Summary' ? (
+            <CashSummaryView />
+          ) : currentTabLabel === 'Petty Cash Summary' ? (
+            <PettyCashSummaryView />
+          ) : currentTabLabel === 'Revolving Fund Summary' ? (
+            <RevolvingFundSummaryView />
           ) : (
             <Box>
               {/* Toolbar */}
