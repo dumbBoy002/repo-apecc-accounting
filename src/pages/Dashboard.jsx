@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Card, CardContent, Box, Typography, Chip } from '@mui/material';
 import {
   Assignment, AccountBalanceWallet, ReceiptLong, TrendingUp,
@@ -54,8 +55,8 @@ export default function Dashboard() {
                   return (
                     <Box
                       key={link.label}
-                      component="a"
-                      href={link.path}
+                      component={Link}
+                      to={link.path}
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
