@@ -9,23 +9,7 @@ const cashReceiptColumns = [
   '#', 'REF#', 'ACCOUNT TITLE', 'TXN DATE', 'AMOUNT', 'SOURCE FUND', 'DESCRIPTION', 'DATE CREATED', 'ACTIONS'
 ];
 
-const DUMMY_CASH_RECEIPTS = [
-  { id: 1, ref: 'REC-20260323-002', accountTitle: 'CBU Collec. (Voluntary)', txnDate: '2026-03-23', amount: '₱5,000.00', sourceFund: 'Cash on Hand', description: 'Voluntary', dateCreated: '4/6/2026, 9:56:22 AM' },
-  { id: 2, ref: 'REC-20260323-001', accountTitle: 'CBU Collection', txnDate: '2026-03-23', amount: '₱3,000.00', sourceFund: 'Cash on Hand', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 3, ref: 'REC-20260323-003', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱10,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 4, ref: 'REC-20260323-004', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 5, ref: 'REC-20260323-005', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 6, ref: 'REC-20260323-006', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 7, ref: 'REC-20260323-007', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 8, ref: 'REC-20260323-008', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 9, ref: 'REC-20260323-009', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 10, ref: 'REC-20260323-010', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 11, ref: 'REC-20260323-011', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 12, ref: 'REC-20260323-012', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 13, ref: 'REC-20260323-013', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 14, ref: 'REC-20260323-014', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-  { id: 15, ref: 'REC-20260323-015', accountTitle: 'CBU Share Capital', txnDate: '2026-03-23', amount: '₱12,000.00', sourceFund: 'Petty Cash', description: 'collection', dateCreated: '3/28/2026, 11:35:11 PM' },
-];
+import { DUMMY_CASH_RECEIPTS } from '../../../data/dummyData';
 
 export default function CashReceiptView() {
   return (
@@ -41,7 +25,7 @@ export default function CashReceiptView() {
             Record all collection receipts. Posts to DCS Receipts column.
           </Typography>
         </Box>
-        <CustomTablePagination />
+        <CustomTablePagination count={DUMMY_CASH_RECEIPTS.length} />
       </Box>
 
       {/* Main Table Card */}

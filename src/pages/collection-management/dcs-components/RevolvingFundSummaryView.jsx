@@ -8,15 +8,34 @@ const revolvingFundSummaryColumns = [
 ];
 
 
-const DUMMY_REVOLVING_FUND_SUMMARY = [
-    { time: '12:00 PM', refNo: '1', category: 'Cash', description: 'Expense', inflow: '₱10,000.00', outflow: '0.00', balance: '' },
-    { time: '12:00 PM', refNo: '2', category: 'Cash', description: 'Other Receipts', inflow: '0.00', outflow: '₱20,000.00', balance: '' },
-    { time: '12:00 PM', refNo: '3', category: 'Cash', description: 'CBU Collection', inflow: '₱30,000.00', outflow: '0.00', balance: '' },
-    { time: '12:00 PM', refNo: '4', category: 'Cash', description: 'Other Payments', inflow: '0.00', outflow: '₱40,000.00', balance: '' },
-    { time: '12:00 PM', refNo: '5', category: 'Cash', description: 'CBU Collection', inflow: '₱50,000.00', outflow: '0.00', balance: '' },
-];
+import { DUMMY_REVOLVING_FUND_SUMMARY } from "../../../data/dummyData";
+
+const parseAmount = (val) => {
+    if (!val) return 0;
+    return parseFloat(val.replace(/[₱,]/g, '')) || 0;
+};
 
 export default function RevolvingFundSummaryView() {
+    const openingBalance = 0;
+
+    let rollingBalance = openingBalance;
+    const computedData = DUMMY_REVOLVING_FUND_SUMMARY.map(row => {
+        const rowInflow = parseAmount(row.inflow);
+        const rowOutflow = parseAmount(row.outflow);
+        rollingBalance = rollingBalance + rowInflow - rowOutflow;
+
+        return {
+            ...row,
+            computedBalance: `₱${rollingBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+        };
+    });
+
+    const rawSumInflow = DUMMY_REVOLVING_FUND_SUMMARY.reduce((acc, row) => acc + parseAmount(row.inflow), 0);
+    const sumInflow = `₱${rawSumInflow.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    const rawSumOutflow = DUMMY_REVOLVING_FUND_SUMMARY.reduce((acc, row) => acc + parseAmount(row.outflow), 0);
+    const sumOutflow = `₱${rawSumOutflow.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
     return (
         <Box sx={{ p: 3, pt: 2, bgcolor: '#fcfcfc', minHeight: 400 }}>
             {/* Header Section */}
@@ -67,16 +86,16 @@ export default function RevolvingFundSummaryView() {
                             </TableRow>
                         </TableHead>
                         <TableRow sx={{ bgcolor: '#f8fafc' }}>
-                            <TableCell colSpan={6} sx={{ textAlign: 'right', fontWeight: 700, fontSize: '0.75rem', color: '#64748b', pr: 20 }}>
+                            <TableCell colSpan={6} sx={{ textAlign: 'right', fontWeight: 700, fontSize: '0.75rem', color: '#64748b', pr: 4 }}>
                                 Opening Balance
                             </TableCell>
-                            <TableCell colSpan={7} sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#0f172a' }}>
+                            <TableCell sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#10b981' }}>
                                 ₱0.00
                             </TableCell>
                         </TableRow>
 
                         <TableBody>
-                            {DUMMY_REVOLVING_FUND_SUMMARY.map((row) => (
+                            {computedData.map((row) => (
                                 <TableRow key={row.refNo}>
                                     <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.time}</TableCell>
                                     <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.refNo}</TableCell>
@@ -84,10 +103,24 @@ export default function RevolvingFundSummaryView() {
                                     <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.description}</TableCell>
                                     <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.inflow}</TableCell>
                                     <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.outflow}</TableCell>
-                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.balance}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#0f172a', fontWeight: 600 }}>{row.computedBalance}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
+                        <TableRow sx={{ bgcolor: '#f8fafc' }}>
+                            <TableCell colSpan={4} sx={{ textAlign: 'right', fontWeight: 700, fontSize: '0.75rem', color: '#64748b', pr: 4 }}>
+                                Total
+                            </TableCell>
+                            <TableCell sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#0f172a' }}>
+                                {sumInflow}
+                            </TableCell>
+                            <TableCell sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#0f172a' }}>
+                                {sumOutflow}
+                            </TableCell>
+                            <TableCell sx={{ fontWeight: 800, fontSize: '0.75rem', color: '#ef4444' }}>
+                                ₱{rollingBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </TableCell>
+                        </TableRow>
                     </Table>
                 </TableContainer>
 

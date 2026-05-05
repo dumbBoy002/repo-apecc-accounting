@@ -2,43 +2,7 @@ import React from 'react';
 import { Box, Typography, Grid, TextField, Button } from '@mui/material';
 import { Title } from '@mui/icons-material';
 
-const CASH_RECEIPTS_DATA = [
-    { label: 'Share Capital Collection', no: '', amount: '0' },
-    { label: 'CBU Collection', no: '', amount: '0' },
-    { label: 'CBU Collec. (Voluntary)', no: '', amount: '0' },
-    { label: 'Salary Advance Collection', no: '', amount: '0' },
-    { label: 'MC Advance Collection', no: '', amount: '0' },
-    { label: 'Home Loan Collection', no: '', amount: '0' },
-    { label: 'Car Loan Collection', no: '', amount: '0' },
-    { label: 'Educational Loan Collection', no: '', amount: '0' },
-    { label: 'Short Term Loan Collection', no: '', amount: '0' },
-    { label: 'Gadget Loan Collection', no: '', amount: '0' },
-    { label: 'Malasakit Loan Collection', no: '', amount: '0' },
-    { label: 'Other Income', no: '', amount: '0' },
-    { label: 'Collection from Deposit', no: '', amount: '0' },
-    { label: 'Other Receipts', no: '', amount: '0' },
-    { label: 'Bank Withdrawal', no: '', amount: '0' }
-];
-
-const CASH_DISBURSEMENT_DATA = [
-    { label: 'Salary Advance Release', no: '', amount: '0' },
-    { label: 'MC Advance Release', no: '', amount: '0' },
-    { label: 'Home Loan Release', no: '', amount: '0' },
-    { label: 'Car Loan Release', no: '', amount: '0' },
-    { label: 'Educational Loan Release', no: '', amount: '0' },
-    { label: 'Short Term Loan Release', no: '', amount: '0' },
-    { label: 'Gadget Loan Release', no: '', amount: '0' },
-    { label: 'Member CBU Withd.', no: '', amount: '0' },
-    { label: 'Member CBU Refund', no: '', amount: '0' },
-    { label: 'Mngt. Expenses', no: '', amount: '0' },
-    { label: 'Petty Cash Fund', no: '', amount: '0' },
-    { label: 'Unclaimed Return Disbursement', no: '', amount: '0' },
-    { label: 'Rebates Disbursement', no: '', amount: '0' },
-    { label: 'Other Payments', no: '', amount: '0' },
-    { label: 'Bank Deposit', no: '', amount: '0' }
-];
-
-const DENOMINATIONS = [1000, 500, 200, 100, 50, 20, 10, 5, 1];
+import { CASH_RECEIPTS_DATA, CASH_DISBURSEMENT_DATA, DENOMINATIONS } from '../../../data/dummyData';
 
 const SectionHeaderRow = ({ title, col1, col2 }) => (
     <Box sx={{ display: 'flex', bgcolor: '#0f172a', color: 'white', py: 1, px: 0 }}>
@@ -318,10 +282,10 @@ export default function DCSSummaryView() {
                             <Box sx={{ bgcolor: '#f0f9ff', py: 1, px: 2, borderBottom: '1px solid #e2e8f0' }}>
                                 <Typography sx={{ fontSize: '0.65rem', fontWeight: 800, color: '#e92f0eff', letterSpacing: '0.05em' }}>CLOSING BALANCE BREAKDOWN</Typography>
                             </Box>
-                            <DataRow num="↳" label="Cash on Hand (COH)" no="" amount="12,000,000.00" />
+                            <DataRow num="↳" label="Cash on Hand (COH)" no="" amount="0.00" />
                             <DataRow num="↳" label="Petty Cash" no="" amount="0.00" />
                             <DataRow num="↳" label="Revolving Fund" no="" amount="0.00" />
-                            <DataRow num="16" label="Closing Balance" no="" amount="12,000,000.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#e92f0eff" />
+                            <DataRow num="16" label="Closing Balance" no="" amount="0.00" isSubTotal={true} bgColor="#e0f2fe" fgColor="#e92f0eff" />
                         </Box>
                     </Box>
                 </Grid>

@@ -18,13 +18,7 @@ const bankReconciliationColumns = [
     "Actions"
 ];
 
-const bankReconciliationData = [
-    { id: 1, refNo: "BR-2024-001", bankName: "BDO", accountNumber: "1234567890", txnDate: "2024-01-01", deposit: "₱10,000.00", withdrawal: "0.00", description: "Opening Balance", transactedBy: "John Doe", dateCreated: "2024-01-01", actions: "" },
-    { id: 2, refNo: "BR-2024-002", bankName: "BDO", accountNumber: "1234567890", txnDate: "2024-01-02", deposit: "0.00", withdrawal: "₱20,000.00", description: "Opening Balance", transactedBy: "John Doe", dateCreated: "2024-01-02", actions: "" },
-    { id: 3, refNo: "BR-2024-003", bankName: "BDO", accountNumber: "1234567890", txnDate: "2024-01-03", deposit: "₱30,000.00", withdrawal: "0.00", description: "Opening Balance", transactedBy: "John Doe", dateCreated: "2024-01-03", actions: "" },
-    { id: 4, refNo: "BR-2024-004", bankName: "BDO", accountNumber: "1234567890", txnDate: "2024-01-04", deposit: "0.00", withdrawal: "₱40,000.00", description: "Opening Balance", transactedBy: "John Doe", dateCreated: "2024-01-04", actions: "" },
-    { id: 5, refNo: "BR-2024-005", bankName: "BDO", accountNumber: "1234567890", txnDate: "2024-01-05", deposit: "₱50,000.00", withdrawal: "0.00", description: "Opening Balance", transactedBy: "John Doe", dateCreated: "2024-01-05", actions: "" },
-];
+import { bankReconciliationData } from '../../../data/dummyData';
 
 export default function BankReconciliationView() {
     return (

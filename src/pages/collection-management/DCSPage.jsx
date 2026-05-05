@@ -64,88 +64,88 @@ export default function DCSPage() {
       />
 
       {/* Main Container */}
-      {/* {!openedTransactionDate ? (
+      {!openedTransactionDate ? (
         <DCSCalendarView onUnlockDCS={(date) => setOpenedTransactionDate(date)} />
-      ) : ( */}
-      <Card>
-        <Box sx={{ borderBottom: '1px solid rgba(2, 13, 71, 0.1)' }}>
-          <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="scrollable" scrollButtons="auto" sx={{ '& .MuiTab-root': { minHeight: 48, py: 1.5 } }}>
-            {TABS.map((t) => <Tab key={t.label} label={t.label} icon={t.icon} iconPosition="start" disableRipple sx={{ fontWeight: 600, fontSize: '0.78rem', textTransform: 'none', minHeight: 48 }} />)}
-          </Tabs>
-        </Box>
+      ) : (
+        <Card>
+          <Box sx={{ borderBottom: '1px solid rgba(2, 13, 71, 0.1)' }}>
+            <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="scrollable" scrollButtons="auto" sx={{ '& .MuiTab-root': { minHeight: 48, py: 1.5 } }}>
+              {TABS.map((t) => <Tab key={t.label} label={t.label} icon={t.icon} iconPosition="start" disableRipple sx={{ fontWeight: 600, fontSize: '0.78rem', textTransform: 'none', minHeight: 48 }} />)}
+            </Tabs>
+          </Box>
 
-        <CardContent sx={{ p: 0 }}>
-          {currentTabLabel === 'Cash Receipt' ? (
-            <CashReceiptView />
-          ) : currentTabLabel === 'Cash Disbursement' ? (
-            <CashDisbursementView />
-          ) : currentTabLabel === 'General Journal' ? (
-            <GeneralJournalView />
-          ) : currentTabLabel === 'DCS Summary' ? (
-            <DCSSummaryView />
-          ) : currentTabLabel === 'Bank Reconciliation' ? (
-            <BankReconciliationView />
-          ) : currentTabLabel === 'Cash Summary' ? (
-            <CashSummaryView />
-          ) : currentTabLabel === 'Petty Cash Summary' ? (
-            <PettyCashSummaryView />
-          ) : currentTabLabel === 'Revolving Fund Summary' ? (
-            <RevolvingFundSummaryView />
-          ) : (
-            <Box>
-              {/* Toolbar */}
-              <Box sx={{ p: 2, display: 'flex', gap: 1.5, alignItems: 'center', borderBottom: '1px solid rgba(2, 13, 71, 0.07)' }}>
-                <TextField
-                  size="small"
-                  placeholder={`Search ${currentTabLabel}...`}
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start"><Search sx={{ fontSize: 16, color: 'rgba(13, 27, 75, 0.4)' }} /></InputAdornment>,
-                  }}
-                  sx={{ flex: 1, maxWidth: 320 }}
-                />
-                <Box sx={{ flexGrow: 1 }} />
-                <IconButton size="small" sx={{ color: 'rgba(13, 27, 75, 0.5)', '&:hover': { color: '#020D47' } }}>
-                  <Refresh sx={{ fontSize: 18 }} />
-                </IconButton>
-                <IconButton size="small" sx={{ color: 'rgba(13, 27, 75, 0.5)', '&:hover': { color: '#020D47' } }}>
-                  <FilterList sx={{ fontSize: 18 }} />
-                </IconButton>
+          <CardContent sx={{ p: 0 }}>
+            {currentTabLabel === 'Cash Receipt' ? (
+              <CashReceiptView />
+            ) : currentTabLabel === 'Cash Disbursement' ? (
+              <CashDisbursementView />
+            ) : currentTabLabel === 'General Journal' ? (
+              <GeneralJournalView />
+            ) : currentTabLabel === 'DCS Summary' ? (
+              <DCSSummaryView />
+            ) : currentTabLabel === 'Bank Reconciliation' ? (
+              <BankReconciliationView />
+            ) : currentTabLabel === 'Cash Summary' ? (
+              <CashSummaryView />
+            ) : currentTabLabel === 'Petty Cash Summary' ? (
+              <PettyCashSummaryView />
+            ) : currentTabLabel === 'Revolving Fund Summary' ? (
+              <RevolvingFundSummaryView />
+            ) : (
+              <Box>
+                {/* Toolbar */}
+                <Box sx={{ p: 2, display: 'flex', gap: 1.5, alignItems: 'center', borderBottom: '1px solid rgba(2, 13, 71, 0.07)' }}>
+                  <TextField
+                    size="small"
+                    placeholder={`Search ${currentTabLabel}...`}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start"><Search sx={{ fontSize: 16, color: 'rgba(13, 27, 75, 0.4)' }} /></InputAdornment>,
+                    }}
+                    sx={{ flex: 1, maxWidth: 320 }}
+                  />
+                  <Box sx={{ flexGrow: 1 }} />
+                  <IconButton size="small" sx={{ color: 'rgba(13, 27, 75, 0.5)', '&:hover': { color: '#020D47' } }}>
+                    <Refresh sx={{ fontSize: 18 }} />
+                  </IconButton>
+                  <IconButton size="small" sx={{ color: 'rgba(13, 27, 75, 0.5)', '&:hover': { color: '#020D47' } }}>
+                    <FilterList sx={{ fontSize: 18 }} />
+                  </IconButton>
+                </Box>
+
+                {/* Table */}
+                <TableContainer>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((col) => (
+                          <TableCell key={col}>{col}</TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell colSpan={columns.length} align="center" sx={{ py: 8 }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                            <Assignment sx={{ fontSize: 32, color: 'rgba(2, 13, 71, 0.15)' }} />
+                            <Typography variant="body2" sx={{ color: 'rgba(13, 27, 75, 0.45)', fontSize: '0.8rem' }}>
+                              No records found
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: 'rgba(13, 27, 75, 0.3)' }}>
+                              Connect the backend to load data or add a new entry
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </Box>
-
-              {/* Table */}
-              <TableContainer>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((col) => (
-                        <TableCell key={col}>{col}</TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell colSpan={columns.length} align="center" sx={{ py: 8 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                          <Assignment sx={{ fontSize: 32, color: 'rgba(2, 13, 71, 0.15)' }} />
-                          <Typography variant="body2" sx={{ color: 'rgba(13, 27, 75, 0.45)', fontSize: '0.8rem' }}>
-                            No records found
-                          </Typography>
-                          <Typography variant="caption" sx={{ color: 'rgba(13, 27, 75, 0.3)' }}>
-                            Connect the backend to load data or add a new entry
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          )}
-        </CardContent>
-      </Card>
-      {/* )} */}
+            )}
+          </CardContent>
+        </Card>
+      )}
     </Box>
   );
 }

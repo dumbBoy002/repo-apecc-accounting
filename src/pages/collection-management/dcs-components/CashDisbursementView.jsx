@@ -5,23 +5,7 @@ import {
 import { Add, MonetizationOn, ListAlt, Block, ArrowForward, Print, VisibilityRounded } from '@mui/icons-material';
 import CustomTablePagination from '../../../components/common/CustomTablePagination';
 
-const DUMMY_CASH_DISBURSEMENTS = [
-  { id: 1, ref: 'DISB-20260323-001', accountTitle: 'Petty Cash Fund', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 2, ref: 'DISB-20260323-002', accountTitle: 'Petty Cash Fund', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 3, ref: 'DISB-20260323-003', accountTitle: 'Other Payments', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 4, ref: 'DISB-20260323-004', accountTitle: 'Other Payments', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 5, ref: 'DISB-20260323-005', accountTitle: 'Other Payments', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 6, ref: 'DISB-20260323-006', accountTitle: 'Salary Advance Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 7, ref: 'DISB-20260323-007', accountTitle: 'Salary Advance Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 8, ref: 'DISB-20260323-008', accountTitle: 'Salary Advance Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 9, ref: 'DISB-20260323-009', accountTitle: 'MerCar Loan Releasealco', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 10, ref: 'DISB-20260323-010', accountTitle: 'Car Loan Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 11, ref: 'DISB-20260323-011', accountTitle: 'Car Loan Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 12, ref: 'DISB-20260323-012', accountTitle: 'Car Loan Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 13, ref: 'DISB-20260323-013', accountTitle: 'Car Loan Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 14, ref: 'DISB-20260323-014', accountTitle: 'Salary Advance Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-  { id: 15, ref: 'DISB-20260323-015', accountTitle: 'Salary Advance Release', txnDate: '2026-03-23', amount: '₱12,500.00', sourceFund: 'Cash in Bank', description: 'Office Electricity', dateCreated: '4/6/2026, 10:15:00 AM' },
-];
+import { DUMMY_CASH_DISBURSEMENTS } from '../../../data/dummyData';
 
 export default function CashDisbursementView() {
   return (

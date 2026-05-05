@@ -1,17 +1,12 @@
-import { MenuBook, ListAlt, Add, Assignment } from "@mui/icons-material";
-import { Box, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button, TablePagination } from "@mui/material";
+import { MenuBook, ListAlt, Add, Block, VisibilityRounded } from "@mui/icons-material";
+import { Box, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button, IconButton } from "@mui/material";
+import CustomTablePagination from '../../../components/common/CustomTablePagination';
 
 const generalJournalColumns = [
     '#', 'Ref#', 'Account Title', 'Date', 'Debit', 'Credit', 'Particulars', 'Date Created', 'Actions'
 ];
 
-const DUMMY_GENERAL_JOURNALS = [
-    { id: 1, refNo: "GJ-2024-001", accountTitle: "Cash", date: "2024-01-01", debit: "₱10,000.00", credit: "--", particulars: "Opening Balance", dateCreated: "2024-01-01", actions: "" },
-    { id: 2, refNo: "GJ-2024-002", accountTitle: "Cash", date: "2024-01-02", debit: "--", credit: "₱20,000.00", particulars: "Opening Balance", dateCreated: "2024-01-02", actions: "" },
-    { id: 3, refNo: "GJ-2024-003", accountTitle: "Cash", date: "2024-01-03", debit: "₱30,000.00", credit: "--", particulars: "Opening Balance", dateCreated: "2024-01-03", actions: "" },
-    { id: 4, refNo: "GJ-2024-004", accountTitle: "Cash", date: "2024-01-04", debit: "--", credit: "₱40,000.00", particulars: "Opening Balance", dateCreated: "2024-01-04", actions: "" },
-    { id: 5, refNo: "GJ-2024-005", accountTitle: "Cash", date: "2024-01-05", debit: "₱50,000.00", credit: "--", particulars: "Opening Balance", dateCreated: "2024-01-05", actions: "" },
-];
+import { DUMMY_GENERAL_JOURNALS } from '../../../data/dummyData';
 
 export default function GeneralJournalView() {
     return (
@@ -27,44 +22,7 @@ export default function GeneralJournalView() {
                         Record all general journal entries.
                     </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 'auto', justifyContent: 'flex-end' }}>
-                    <TablePagination
-                        component="div"
-                        count={DUMMY_GENERAL_JOURNALS.length}
-                        page={0}
-                        rowsPerPage={10}
-                        rowsPerPageOptions={[10, 25, 50, 100, 200]}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
-                        SelectProps={{
-                            MenuProps: {
-                                sx: {
-                                    '.MuiMenuItem-root': {
-                                        fontSize: '0.75rem',
-                                    }
-                                }
-                            }
-                        }}
-                        sx={{
-                            // Selected value
-                            '.MuiTablePagination-select': {
-                                fontSize: '0.75rem',
-                            },
-
-                            // "Rows per page:" label
-                            '.MuiTablePagination-selectLabel': {
-                                fontSize: '0.75rem',
-                            },
-
-                            // Page info text
-                            '.MuiTablePagination-displayedRows': {
-                                fontSize: '0.75rem',
-                            },
-
-                        }}
-                    />
-
-                </Box>
+                <CustomTablePagination count={DUMMY_GENERAL_JOURNALS.length} />
             </Box>
             <Card sx={{ borderRadius: 1.5, border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
                 {/* Top Bar */}
@@ -78,21 +36,33 @@ export default function GeneralJournalView() {
                 <TableContainer>
                     <Table size="small">
                         <TableHead>
-                            <TableRow>
+                            <TableRow sx={{ bgcolor: '#1e293b', '&:hover': { bgcolor: '#1e293b' } }}>
                                 {generalJournalColumns.map((col) => (
-                                    <TableCell key={col}>{col}</TableCell>
+                                    <TableCell key={col} sx={{ color: '#ffffff !important', background: 'transparent !important', borderBottom: 'none !important', fontSize: '0.65rem', py: 1.5, fontWeight: 700, opacity: 0.9 }}>{col}</TableCell>
                                 ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={generalJournalColumns.length} align="center" sx={{ py: 8 }}>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                                        <Assignment sx={{ fontSize: 40, color: 'rgba(13, 27, 75, 0.1)' }} />
-                                        <Typography sx={{ color: 'rgba(13, 27, 75, 0.3)', fontWeight: 500 }}>No entries yet</Typography>
-                                    </Box>
-                                </TableCell>
-                            </TableRow>
+                            {DUMMY_GENERAL_JOURNALS.map((row, index) => (
+                                <TableRow key={row.id} sx={{ bgcolor: index % 2 === 0 ? '#ffffff' : '#f8fafc', '&:last-child td': { borderBottom: 'none' } }}>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.id}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.refNo}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.accountTitle}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.date}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.debit}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.credit}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#64748b' }}>{row.particulars}</TableCell>
+                                    <TableCell sx={{ fontSize: '0.75rem', color: '#0f172a', fontWeight: 600 }}>{row.dateCreated}</TableCell>
+                                    <TableCell align="center">
+                                        <IconButton size="small" color="error" sx={{ opacity: 0.6, '&:hover': { opacity: 1, color: '#ef4444' } }}>
+                                            <Block sx={{ fontSize: 16 }} />
+                                        </IconButton>
+                                        <IconButton size="small" color="primary" sx={{ opacity: 0.6, '&:hover': { opacity: 1, color: '#4463efff' } }}>
+                                            <VisibilityRounded sx={{ fontSize: 16 }} />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
